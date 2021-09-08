@@ -2,6 +2,7 @@ package com.dashfwd.guiceexample
 
 import com.google.inject.AbstractModule
 import com.google.inject.Provides
+import com.google.inject.assistedinject.FactoryModuleBuilder
 import com.google.inject.multibindings.MapBinder
 import com.google.inject.name.Names
 
@@ -37,7 +38,7 @@ class MainGuiceModule : AbstractModule() {
         bind(String::class.java).annotatedWith(Names.named("person message"))
             .toInstance("hey")
         bind(String::class.java).annotatedWith(ColorAnnotation::class.java).toInstance("blue")
-        bindConstant().annotatedWith(HttpPortAnnotation::class.java).to(8080) // binding a constant; may be more useful in Java
+        bindConstant().annotatedWith(HttpPortAnnotation::class.java).to("8080") // binding a constant; may be more useful in Java
         bind(PersonService::class.java).to(PersonServiceImpl::class.java)
 
         // Example 6: Using a provider class to create the instance
@@ -58,6 +59,19 @@ class MainGuiceModule : AbstractModule() {
         mapBinder.addBinding(SenderType.Email).to(EmailSenderServiceImpl::class.java)
 
         bind(SenderFactory::class.java).to(SenderFactoryImpl::class.java)
+
+        install(
+            FactoryModuleBuilder()
+                // the next line contains the interface and implementation of a service
+                // that needs assisted creation
+                .implement(CarConfigurator::class.java, CarConfiguratorImpl::class.java)
+
+                // this is the interface that will be visible to our internal
+                // code to create an instance of the car configurator.
+                // Guice will generate the actual factory that does the additional
+                //
+                .build(CarConfiguratorFactory::class.java)
+        )
     }
 
     // A method can also be used to provide an implementation

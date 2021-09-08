@@ -2,7 +2,9 @@ package com.dashfwd.guiceexample
 
 import com.google.inject.Inject
 import com.google.inject.Singleton
+import com.google.inject.assistedinject.Assisted
 import com.google.inject.name.Named
+import java.util.*
 
 class AllServices {
     @Inject
@@ -22,6 +24,10 @@ class AllServices {
 
     @Inject
     lateinit var senderFactory: SenderFactory
+
+    @Inject
+    lateinit var carConfiguratorFactory: CarConfiguratorFactory
+
 }
 
 
@@ -79,8 +85,43 @@ class PersonServiceImpl : PersonService {
 
     @Inject
     @HttpPortAnnotation
-    var httpPort: Int?=null
+    var httpPort: String=""
 
     override fun speak() = println("$msg; also did you know about the color $color? (port=$httpPort")
 }
 
+/**
+ * Asssisted Injection
+ *
+ * Good article on this: https://dzone.com/articles/advanced-dependency-injection
+ */
+
+data class Car(val color: String)
+
+class ColorCheckService {
+    fun checkIfValid(color: String) = (color != "orange")
+}
+
+/**
+ * This interface is what will be used by client code to create a car configurator.
+ */
+interface CarConfiguratorFactory {
+    fun create(color: String): CarConfigurator
+}
+
+interface CarConfigurator {
+    fun validateColor(): Optional<Car>
+}
+
+class CarConfiguratorImpl @Inject constructor(
+    @param:Assisted
+    private val color: String
+) : CarConfigurator {
+    @Inject
+    private lateinit var colorCheckService: ColorCheckService
+
+    override fun validateColor(): Optional<Car> {
+        val valid = colorCheckService.checkIfValid(color)
+        return if (valid) Optional.of(Car(color)) else Optional.empty()
+    }
+}

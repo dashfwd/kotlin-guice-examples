@@ -16,4 +16,21 @@ fun main() {
 
     println("Mechanism 1 = " + allServices.senderFactory.getSender(SenderType.Phone).getMechanism())
     println("Mechanism 2 = " + allServices.senderFactory.getSender(SenderType.Fax).getMechanism())
+
+    run {
+        val carBuilderFactory = allServices.carConfiguratorFactory.create("blue")
+        val car = carBuilderFactory.validateColor()
+        if (car.isPresent) {
+            println("I created a ${car.get().color} car")
+        }
+
+    }
+
+    run {
+        val carBuilderFactory = allServices.carConfiguratorFactory.create("orange")
+        val car = carBuilderFactory.validateColor()
+        if (!car.isPresent) {
+            println("Could not build an orange car")
+        }
+    }
 }

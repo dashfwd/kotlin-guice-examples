@@ -6,12 +6,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>ev-sync-example</artifactId>
-    <version>0.1T</version>
+    <groupId>org.dashforward</groupId>
+    <artifactId>kotlin-guice-examples</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>ev-sync-example</name>
+    <name>kotlin-guice-examples</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -61,6 +61,12 @@
             <version>4.2.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-assistedinject</artifactId>
+            <version>4.2.2</version>
+        </dependency>
+
         <!-- Testing dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -68,6 +74,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
 
     </dependencies>
 
@@ -96,6 +103,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <mainClass>com.dashfwd.guiceexample.ApplicationKt</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
