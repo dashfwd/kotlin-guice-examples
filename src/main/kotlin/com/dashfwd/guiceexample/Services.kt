@@ -80,14 +80,14 @@ class PersonServiceImpl : PersonService {
     lateinit var msg: String
 
     @Inject
-    @ColorAnnotation
+    @field:ColorAnnotation
     lateinit var color: String
 
     @Inject
-    @HttpPortAnnotation
+    @field:HttpPortAnnotation
     var httpPort: String=""
 
-    override fun speak() = println("$msg; also did you know about the color $color? (port=$httpPort")
+    override fun speak() = println("$msg; also did you know about the color $color? (port=$httpPort)")
 }
 
 /**
