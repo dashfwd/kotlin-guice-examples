@@ -17,7 +17,27 @@ Examples include:
 For more information, see the comments in MainGuiceModule.kt
 
 ## Running the example
-$ `mvn exec:java`
+in your terminal: 
+```
+$ mvn compile
+mvn exec:java
+~/workplace/GlacierArchiveCatalogCDK/src/GlacierArchiveCatalogLambdas/kotlin-guice-examples/kotlin-guice-examples main*
+❯ mvn compile
+mvn exec:java
+[INFO] Scanning for projects...
+...
+[INFO] BUILD SUCCESS
+...
+meow
+bark
+hey; also did you know about the color ? (port=
+1 calculate 2 = 3
+2 calculate 3 = 5
+Mechanism 1 = by phone
+Mechanism 2 = by fax
+I created a blue car
+Could not build an orange car
+```
 
 ## Learning Guice
 - [Google Guice](https://github.com/google/guice)
