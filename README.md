@@ -17,7 +17,11 @@ Examples include:
 For more information, see the comments in MainGuiceModule.kt
 
 ## Running the example
-$ `mvn exec:java`
+in your terminal: 
+```
+mvn compile
+mvn exec:java
+```
 
 ## Learning Guice
 - [Google Guice](https://github.com/google/guice)
